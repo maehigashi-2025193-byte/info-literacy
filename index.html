@@ -120,24 +120,22 @@ function showQuestion() {
   });
 }
 
-
-  const choicesDiv = document.getElementById("choices");
-  choicesDiv.innerHTML = "";
-
-  quiz[current].choices.forEach((choice, index) => {
-    const btn = document.createElement("button");
-    btn.textContent = choice;
-    btn.onclick = () => checkAnswer(index);
-    choicesDiv.appendChild(btn);
-  });
-}
-
 function checkAnswer(selected) {
   const result = document.getElementById("result");
   const explanation = document.getElementById("explanation");
   const correct = quiz[current].answer;
 
-  function nextQuestion() {
+  if (selected === correct) {
+    result.textContent = "⭕ 正解！";
+    score++;
+  } else {
+    result.textContent = `❌ 不正解（正解：${quiz[current].choices[correct]}）`;
+  }
+
+  explanation.textContent = "解説：" + quiz[current].explanation;
+}
+
+function nextQuestion() {
   current++;
 
   if (current < quiz.length) {
@@ -151,19 +149,7 @@ function checkAnswer(selected) {
   }
 }
 
-
-  if (selected === correct) {
-    result.textContent = "⭕ 正解！";
-  } else {
-    result.textContent = `❌ 不正解（正解：${quiz[current].choices[correct]}）`;
-  }
-
-  explanation.textContent = "解説：" + quiz[current].explanation;
-}
-
-
 showQuestion();
-
 </script>
 
 </body>
