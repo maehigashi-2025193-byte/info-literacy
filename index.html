@@ -104,8 +104,22 @@ let score = 0;
 
 function showQuestion() {
   document.getElementById("result").textContent = "";
+  document.getElementById("explanation").textContent = "";
+
   document.getElementById("question").textContent =
     `Q${current + 1}. ${quiz[current].question}`;
+
+  const choicesDiv = document.getElementById("choices");
+  choicesDiv.innerHTML = "";
+
+  quiz[current].choices.forEach((choice, index) => {
+    const btn = document.createElement("button");
+    btn.textContent = choice;
+    btn.onclick = () => checkAnswer(index);
+    choicesDiv.appendChild(btn);
+  });
+}
+
 
   const choicesDiv = document.getElementById("choices");
   choicesDiv.innerHTML = "";
@@ -123,6 +137,21 @@ function checkAnswer(selected) {
   const explanation = document.getElementById("explanation");
   const correct = quiz[current].answer;
 
+  function nextQuestion() {
+  current++;
+
+  if (current < quiz.length) {
+    showQuestion();
+  } else {
+    document.getElementById("question").textContent =
+      `クイズ終了！ 正解数：${score} / ${quiz.length}`;
+    document.getElementById("choices").innerHTML = "";
+    document.getElementById("result").textContent = "";
+    document.getElementById("explanation").textContent = "";
+  }
+}
+
+
   if (selected === correct) {
     result.textContent = "⭕ 正解！";
   } else {
@@ -134,7 +163,6 @@ function checkAnswer(selected) {
 
 
 showQuestion();
-  document.getElementById("explanation").textContent = "";
 
 </script>
 
