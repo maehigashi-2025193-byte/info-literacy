@@ -119,15 +119,6 @@ function showQuestion() {
 }
 
 function checkAnswer(selected) {
-  if (selected === quiz[current].answer) {
-    document.getElementById("result").textContent = "⭕ 正解";
-    score++;
-  } else {
-    document.getElementById("result").textContent = "❌ 不正解";
-  }
-}
-
-function checkAnswer(selected) {
   const result = document.getElementById("result");
   const explanation = document.getElementById("explanation");
   const correct = quiz[current].answer;
